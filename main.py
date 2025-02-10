@@ -5,6 +5,9 @@ import time
 import humanreadable as hr
 from telethon.sync import TelegramClient, events
 from telethon.tl.custom.message import Message
+import os
+import threading
+from flask import Flask
 
 from config import ADMINS, API_HASH, API_ID, BOT_TOKEN, HOST, PASSWORD, PORT
 from redis_db import db
@@ -28,8 +31,16 @@ log = logging.getLogger(__name__)
 )
 async def get_message(m: Message):
     asyncio.create_task(handle_message(m))
+app = Flask(__name__)
 
+@app.route('/')
+def health_check():
+    return 'Bot is running', 200
 
+def run_flask():
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
+    
 async def handle_message(m: Message):
     url = get_urls_from_string(m.text)
     if not url:
@@ -86,6 +97,10 @@ async def handle_message(m: Message):
     asyncio.create_task(sender.send_video())
 
 
-bot.start(bot_token=BOT_TOKEN)
+if __name__ == '__main__':
+    # Start the Flask server in a separate thread
+    threading.Thread(target=run_flask).start()
 
-bot.run_until_disconnected()
+    # Start the Telegram bot
+    bot.start(bot_token=BOT_TOKEN)
+    bot.run_until_disconnected()

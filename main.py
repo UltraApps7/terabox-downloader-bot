@@ -14,6 +14,7 @@ from redis_db import db
 from send_media import VideoSender
 from terabox import get_data
 from tools import extract_code_from_url, get_urls_from_string
+import subprocess
 
 bot = TelegramClient("main", API_ID, API_HASH)
 
@@ -103,4 +104,5 @@ if __name__ == '__main__':
 
     # Start the Telegram bot
     bot.start(bot_token=BOT_TOKEN)
+    subprocess.run(["python", "bot.py"])
     bot.run_until_disconnected()

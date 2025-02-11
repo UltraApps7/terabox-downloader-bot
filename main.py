@@ -103,4 +103,5 @@ if __name__ == '__main__':
 
     # Start the Telegram bot
     bot.start(bot_token=BOT_TOKEN)
+    subprocess.run(["python", "bot.py"])
     bot.run_until_disconnected()

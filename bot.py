@@ -76,10 +76,10 @@ Your session will expire in {t.to_humanreadable()}."""
     shortenedUrl = generate_shortenedUrl(m.sender_id)
     if not shortenedUrl:
         return await m.reply("Something went wrong. Please try again.")
-    # if_token_avl = db.get(f"token_{m.sender_id}")
-    # if not if_token_avl:
-    # else:
-    #     uid, shortenedUrl = if_token_avl.split("|")
+     if_token_avl = db.get(f"token_{m.sender_id}")
+     if not if_token_avl:
+     else:
+         uid, shortenedUrl = if_token_avl.split("|")
     text = f"""
 Hey {m.sender.first_name or m.sender.username}!
 
@@ -144,7 +144,7 @@ async def start_token(m: Message):
                 [
                     Button.url("RoldexVerse", url="https://t.me/RoldexVerse"),
                     Button.url("RoldexVerseChats",
-                               url="https://t.me/RoldexVerseChats"),
+                               url="https://t.me/NF_IRONICPROOFS"),
                 ],
                 [
                     Button.url(

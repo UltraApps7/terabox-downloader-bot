@@ -27,7 +27,6 @@ bot = TelegramClient("bot", API_ID, API_HASH)
     )
 )
 async def start(m: Message):
-    print('inside start')
     reply_text = """
 Hello there! I'm your friendly video downloader bot specially designed to fetch videos from Terabox. Share the Terabox link with me, and I'll swiftly get started on downloading it for you.
 
@@ -64,7 +63,6 @@ Let's make your video experience even better!
     )
 )
 async def generate_token(m: Message):
-    print('inside generate token')
     is_user_active = db.get(f"active_{m.sender_id}")
     if is_user_active:
         ttl = db.ttl(f"active_{m.sender_id}")
@@ -76,10 +74,10 @@ Your session will expire in {t.to_humanreadable()}."""
     shortenedUrl = generate_shortenedUrl(m.sender_id)
     if not shortenedUrl:
         return await m.reply("Something went wrong. Please try again.")
-     if_token_avl = db.get(f"token_{m.sender_id}")
-     if not if_token_avl:
-     else:
-         uid, shortenedUrl = if_token_avl.split("|")
+    # if_token_avl = db.get(f"token_{m.sender_id}")
+    # if not if_token_avl:
+    # else:
+    #     uid, shortenedUrl = if_token_avl.split("|")
     text = f"""
 Hey {m.sender.first_name or m.sender.username}!
 
@@ -144,7 +142,7 @@ async def start_token(m: Message):
                 [
                     Button.url("RoldexVerse", url="https://t.me/RoldexVerse"),
                     Button.url("RoldexVerseChats",
-                               url="https://t.me/NF_IRONICPROOFS"),
+                               url="https://t.me/RoldexVerseChats"),
                 ],
                 [
                     Button.url(
@@ -204,10 +202,10 @@ async def remove(m: UpdateNewMessage):
 async def removeall(m: UpdateNewMessage):
     remove_all_videos()
     return await m.reply("Removed all videos from the list.")
-
-
 if __name__ == '__main__':
-    # Start the Flask server in a separat
+    # Start the Flask server in a separate thre
     # Start the Telegram bot
     bot.start(bot_token=BOT_TOKEN)
+ 
     bot.run_until_disconnected()
+ 

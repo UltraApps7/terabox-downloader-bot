@@ -18,6 +18,6 @@ ADMINS = [1865273492]
 BOT_USERNAME = "autogiveaway_bot"
 
 # Force user to join this channel. (make sure you have promoted the bot on this chat.)
-FORCE_LINK = "@RoldexVerse"
+FORCE_LINK = "@NF_IRONICPROOFS"
 
 PUBLIC_EARN_API = "https://easysky.in/st?api=8700018bffc724d4b39f7be1d60d680fbc2ab718"  # https://publicearn.com/api

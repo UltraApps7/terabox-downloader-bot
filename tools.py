@@ -265,30 +265,31 @@ def remove_all_videos():
         print(f"Error: {e}")
 
 
-def generate_shortenedUrl(
-    sender_id: int,
-):
+
+import requests
+import uuid
+
+def generate_shortenedUrl(sender_id: int):
     try:
         uid = str(uuid.uuid4())
-        data = requests.get(
-            "https://publicearn.com/api",
-            params={
-                "api": PUBLIC_EARN_API,
-                "url": f"https://t.me/{BOT_USERNAME}?start=token_{uid}",
-                "alias": uid.split("-", maxsplit=2)[0],
-            },
-        )
-        data.raise_for_status()
-        data_json = data.json()
+        original_url = f"https://t.me/{BOT_USERNAME}?start=token_{uid}"
+        params = {
+            "api": PUBLIC_EARN_API,
+            "url": original_url,
+            "alias": uid.split("-", maxsplit=2)[0],
+        }
+        response = requests.get("https://easysky.in/api", params=params)
+        response.raise_for_status()
+        data_json = response.json()
         if data_json.get("status") == "success":
-            
-        
-            url = data_json.get("shortenedUrl")
-            print('syccess'+url)
-            db.set(f"token_{uid}", f"{sender_id}|{url}", ex=21600)
-            return url
+            shortened_url = data_json.get("shortenedUrl")
+            print('Success:', shortened_url)
+            db.set(f"token_{uid}", f"{sender_id}|{shortened_url}", ex=21600)
+            return shortened_url
         else:
-            print('failuress'+data_json)
+            print('Failure:', data_json)
             return None
     except Exception as e:
+        print('Error:', e)
         return None
+        

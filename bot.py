@@ -27,6 +27,7 @@ bot = TelegramClient("bot", API_ID, API_HASH)
     )
 )
 async def start(m: Message):
+    print('inside start')
     reply_text = """
 Hello there! I'm your friendly video downloader bot specially designed to fetch videos from Terabox. Share the Terabox link with me, and I'll swiftly get started on downloading it for you.
 
@@ -63,6 +64,7 @@ Let's make your video experience even better!
     )
 )
 async def generate_token(m: Message):
+    print('inside generate token')
     is_user_active = db.get(f"active_{m.sender_id}")
     if is_user_active:
         ttl = db.ttl(f"active_{m.sender_id}")

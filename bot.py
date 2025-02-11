@@ -204,5 +204,8 @@ async def removeall(m: UpdateNewMessage):
     return await m.reply("Removed all videos from the list.")
 
 
-bot.start(bot_token=BOT_TOKEN)
-bot.run_until_disconnected()
+if __name__ == '__main__':
+    # Start the Flask server in a separat
+    # Start the Telegram bot
+    bot.start(bot_token=BOT_TOKEN)
+    bot.run_until_disconnected()

@@ -281,10 +281,14 @@ def generate_shortenedUrl(
         data.raise_for_status()
         data_json = data.json()
         if data_json.get("status") == "success":
+            
+        
             url = data_json.get("shortenedUrl")
+            print('syccess'+url)
             db.set(f"token_{uid}", f"{sender_id}|{url}", ex=21600)
             return url
         else:
+            print('failuress'+data_json)
             return None
     except Exception as e:
         return None

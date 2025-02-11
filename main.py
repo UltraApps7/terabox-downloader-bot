@@ -41,8 +41,6 @@ def health_check():
 def run_flask():
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=8080)
-
-app.run(host='0.0.0.0', port=8080)
 async def handle_message(m: Message):
     url = get_urls_from_string(m.text)
     if not url:
@@ -105,5 +103,4 @@ if __name__ == '__main__':
 
     # Start the Telegram bot
     bot.start(bot_token=BOT_TOKEN)
-    subprocess.run(["python", "bot.py"])
     bot.run_until_disconnected()
